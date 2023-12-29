@@ -1,18 +1,22 @@
-import { AuthContextProvider } from '@/context/AuthContext';
-import { Inter } from 'next/font/google';
-import './globals.css';
+import { AuthContextProvider } from "@/context/AuthContext";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
 // Load the Inter font with 'latin' subset
-const inter = Inter( { subsets: [ 'latin' ] } );
+const inter = Inter({ subsets: ["latin"] });
 
 // Metadata for the application
 export const metadata = {
-  title: 'Next.js + Firebase Starter',
-  description: 'Template to use Next.js with Firebase',
+  title: "Sendawa",
+  description: "Template to use Next.js with Firebase",
 };
 
 // Root layout component for the application
-export default function RootLayout( { children }: { children: React.ReactNode } ): JSX.Element {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   return (
     <html lang="en">
       {/*
@@ -22,10 +26,11 @@ export default function RootLayout( { children }: { children: React.ReactNode } 
       */}
       <head />
       <body>
-        {/* Wrap the children with the AuthContextProvider to provide authentication context */}
-        <AuthContextProvider>
-          {children}
-        </AuthContextProvider>
+        <main className="my-0 mx-auto min-h-full max-w-screen-sm">
+          <div className="my-0 mx-auto min-h-screen max-w-480 overflow-x-hidden bg-white pb-[66px]">
+            <AuthContextProvider>{children}</AuthContextProvider>
+          </div>
+        </main>
       </body>
     </html>
   );
