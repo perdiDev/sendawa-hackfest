@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Home() {
+export default function page() {
   return (
     <main className="flex min-h-screen justify-center items-center gap-2 p-24 bg-white">
       <h2>Ini nanti halaman landingpage</h2>
