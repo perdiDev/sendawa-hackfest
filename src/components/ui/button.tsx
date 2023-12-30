@@ -9,6 +9,8 @@ const buttonVariants = cva("", {
     variant: {
       default:
         "w-full bg-primary-green text-white font-semibold py-2 rounded-lg hover:bg-secondary-green",
+      disable:
+        "w-full bg-gray text-black font-semibold py-2 rounded-lg hover:bg-gray-400"
     },
     size: {
       default: "yesh-10 yespx-4 yespy-2",
