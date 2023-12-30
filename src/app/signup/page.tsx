@@ -6,7 +6,6 @@ import Image from "next/image";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { auth } from "@/firebase";
-import addData from "@/firebase/firestore/addData";
 
 function Page(): JSX.Element {
   const [email, setEmail] = useState("");
@@ -43,7 +42,7 @@ function Page(): JSX.Element {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md bg-slate-200">
         <form
           onSubmit={handleForm}
           className="bg-white shadow-[-20_0_16px_0_rgba(0,0,0,0.08)] rounded pt-6 pb-8 mb-4"
