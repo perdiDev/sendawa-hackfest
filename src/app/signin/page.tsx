@@ -38,7 +38,7 @@ function Page(): JSX.Element {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      router.push("/new-outlet");
+      router.push("/admin");
     } catch (error) {
       console.error("Error signing in with Google", error);
     }
