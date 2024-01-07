@@ -14,6 +14,7 @@ export default function Menu({ url, name, price }: menuInterface) {
         width={100}
         height={100}
         src={url}
+        priority
         className="rounded-[6px] w-[100px] h-[100px] object-cover"
       />
       <div>
