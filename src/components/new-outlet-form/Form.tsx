@@ -7,6 +7,7 @@ import setDataRealtime from "@/firebase/realtime/setData";
 import uploadFile from "@/firebase/storage/uploadData";
 import { useRouter } from "next/navigation";
 import { FormData, stepsData } from ".";
+import addDataFirestore from "@/firebase/firestore/addData";
 
 interface Props {
   userId: string;
@@ -52,10 +53,12 @@ const Form: React.FC<Props> = ({ userId }) => {
       const data = Object.assign(fieldValues, fileUploaded)
       
       console.log(fieldValues);
-      setDataRealtime(`/${userId}`, "brand", data);
+      const x = await addDataFirestore(`/${userId}`, 'outlet', data)
+      console.log(x)
+      router.push("/admin");
 
+      // setDataRealtime(`/${userId}`, "brand", data);
 
-      // router.push("/admin");
     } catch (error) {
       console.log(error);
     }
