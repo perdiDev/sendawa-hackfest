@@ -1,10 +1,18 @@
 "use client";
+import dynamic from 'next/dynamic'
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase";
-import Profile from "@/components/Profile";
+// import Profile from "@/components/Profile";
+import ActivitesList from "@/components/admin/Activites";
+import MenuSection from "@/components/admin/MenuSection";
+import Skeleton from '@/components/pages/Admin/profile/Skeleton';
+
+const Profile = dynamic(() => import('../../components/Profile'), {
+  loading: () => <Skeleton />,
+})
 
 function Page(): JSX.Element {
   const { user } = useAuthContext() as { user: any };
@@ -14,7 +22,7 @@ function Page(): JSX.Element {
     if (user == null) {
       router.push("/");
     }
-  }, [user, router]);
+  }, []);
 
   const handleSignOut = async () => {
     try {
@@ -26,9 +34,11 @@ function Page(): JSX.Element {
   };
 
   return (
-    <main className="flex flex-col items-center mx-auto px-5">
-      <h1>Only logged-in users can view this page</h1>
+    <main className="mx-auto w-full">
       <Profile />
+      <ActivitesList />
+      
+      <MenuSection />
       <button onClick={handleSignOut}>Logout</button>
     </main>
   );
