@@ -1,7 +1,7 @@
 import React from 'react'
 import Menu from './Menu'
 
-const imageUrlEx = "https://awsimages.detik.net.id/community/media/visual/2021/04/22/5-makanan-enak-dari-indonesia-dan-malaysia-yang-terkenal-enak-5.jpeg?w=600&q=90"
+const imageUrlEx = "https://awsimages.detik.net.id/community/media/visual/2021/04/22/5-makanan-enak-dari-indonesia-dan-malaysia-yang-terkenal-enak-5.jpeg?w=600&q=20"
 
 export default function Menulist() {
   return (
