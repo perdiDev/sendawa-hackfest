@@ -5,7 +5,7 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 const db = getFirestore(firebase_app);
 
 // Function to add data to a Firestore collection
-export default async function addData(
+export default async function addDataFirestore(
   collection: string,
   id: string,
   data: any
