@@ -2,43 +2,27 @@
 import { useAuthContext } from "@/context/AuthContext";
 import getDocumentFirestore from "@/firebase/firestore/getData";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import Loading from "./ui/Loading";
 import { MdLocationPin } from "react-icons/md";
-import Skeleton from "./pages/Admin/profile/Skeleton";
-
-interface typeData {
-  address_brand: string;
-  images: string;
-  name_brand: string;
-  name_owner: string;
-  ovo_brand: string;
-  phone_brand: string;
-  phone_owner: string;
-  profile: string;
-}
+import ProfilSkeleton from "../skeleton/ProfileSkeleton";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Profile() {
-  const [data, setData] = useState<any | null>(null);
   const { user } = useAuthContext() as { user: any };
-  // const [isLoading, setIsLoading] = useState(true);
 
-  const fetchData = async () => {
-    // setIsLoading(true);
-
-    try {
-      const { result } = await getDocumentFirestore(`${user.uid}`, "outlet");
-      setData(result);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
+  const {isLoading, isError, data, error} = useQuery({
+    queryKey: ["profile"],
+    queryFn:async () => {
+      const {result} = await getDocumentFirestore(`${user.uid}`, "outlet");
+      return result
     }
-    // setIsLoading(false);
-  };
+  })
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  if(isLoading){
+    return <ProfilSkeleton />
+  }
+  if(isError){
+    console.log("Error", error)
+  }
 
   if (data) {
     return (
@@ -66,9 +50,9 @@ export default function Profile() {
         <h3 className="mt-3 font-semibold ml-5 md:ml-10 text-md">
           {data.name_brand}
         </h3>
-        <h3 className="text-slate-600 ml-5 md:ml-10 text-sm flex gap-2">
+        <h3 className="text-slate-600 ml-5 md:ml-10 text-sm flex gap-2 items-baseline">
           <span>
-            <MdLocationPin />
+            <MdLocationPin size={14}/>
           </span>
           {data.address_brand}
         </h3>
