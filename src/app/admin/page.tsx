@@ -1,46 +1,32 @@
-"use client";
-import dynamic from 'next/dynamic'
-import { useAuthContext } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { signOut } from "firebase/auth";
-import { auth } from "@/firebase";
-// import Profile from "@/components/Profile";
-import ActivitesList from "@/components/admin/Activites";
-import MenuSection from "@/components/admin/MenuSection";
-import Skeleton from '@/components/pages/Admin/profile/Skeleton';
+import dynamic from "next/dynamic";
+import ProfileSkeleton from "@/components/skeleton/ProfileSkeleton";
+import AuthLayout from "@/components/layouts/AuthLayout";
+import Logout from "@/components/admin/Logout";
+import MenuListSkeleton from "@/components/skeleton/MenuList";
+import ActivitySkeleton from "@/components/skeleton/ActivitySkeleton";
 
-const Profile = dynamic(() => import('../../components/Profile'), {
-  loading: () => <Skeleton />,
+const Profile = dynamic(() => import("@/components/admin/Profile"), {
+  loading: () => <ProfileSkeleton />,
+});
+
+const MenuSection = dynamic(() => import("@/components/admin/MenuSection"),{
+  loading: () => <MenuListSkeleton />,
+})
+
+const ActivitesList = dynamic(() => import("@/components/admin/Activites"),{
+  loading: () => <ActivitySkeleton />,
 })
 
 function Page(): JSX.Element {
-  const { user } = useAuthContext() as { user: any };
-  const router = useRouter();
-
-  useEffect(() => {
-    if (user == null) {
-      router.push("/");
-    }
-  }, []);
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      router.push("/signin");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <main className="mx-auto w-full">
-      <Profile />
-      <ActivitesList />
-      
-      <MenuSection />
-      <button onClick={handleSignOut}>Logout</button>
-    </main>
+    <AuthLayout>
+      <main className="mx-auto w-full">
+        <Profile />
+        <ActivitesList />
+        <MenuSection />
+        <Logout />
+      </main>
+    </AuthLayout>
   );
 }
 
