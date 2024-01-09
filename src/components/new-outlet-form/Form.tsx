@@ -1,19 +1,20 @@
 "use client";
+
 import React from "react";
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import setDataRealtime from "@/firebase/realtime/setData";
 import uploadFile from "@/firebase/storage/uploadData";
 import { useRouter } from "next/navigation";
 import { FormData, stepsData } from ".";
 import addDataFirestore from "@/firebase/firestore/addData";
+import { useAuthContext } from "@/context/AuthContext";
+import { useMutation } from "@tanstack/react-query";
+import { sendEmail } from "@/services";
+import ModalNewOutlet from "./ModalNewOutlet";
 
-interface Props {
-  userId: string;
-}
-
-const Form: React.FC<Props> = ({ userId }) => {
+const Form = () => {
+  const { user } = useAuthContext() as { user: any };
   const router = useRouter();
 
   const [fieldValues, setFieldValues] = useState<FormData>(
@@ -27,6 +28,7 @@ const Form: React.FC<Props> = ({ userId }) => {
 
   const [profile, setProfile] = useState(null);
   const [imagesBrand, setImageBrand] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,27 +40,38 @@ const Form: React.FC<Props> = ({ userId }) => {
     }));
   };
 
+  const { mutate } = useMutation({
+    mutationFn: sendEmail,
+    onSuccess: (response) => console.log({ response }),
+  });
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const profile_res = await uploadFile(`/${userId}/profile`, profile);
-      const brands_res = await uploadFile(`/${userId}/images`, imagesBrand);
+      const profile_res = await uploadFile(`/${user.uid}/profile`, profile);
+      const brands_res = await uploadFile(`/${user.uid}/images`, imagesBrand);
 
-      const fileUploaded = {
+      const otherInfo = {
         profile: profile_res.url,
         images: brands_res.url,
-      }
+        isVerified: false,
+      };
 
-      const data = Object.assign(fieldValues, fileUploaded)
-      
+      const data = Object.assign(fieldValues, otherInfo);
+
       console.log(fieldValues);
-      const x = await addDataFirestore(`/${userId}`, 'outlet', data)
-      console.log(x)
-      router.push("/admin");
+      await addDataFirestore(`/${user.uid}`, "outlet", data);
 
-      // setDataRealtime(`/${userId}`, "brand", data);
+      const emailData = {
+        to: user.email,
+        brand_name: fieldValues.brand_name,
+      };
 
+      console.log(emailData);
+
+      mutate(emailData);
+      setIsModalOpen(true);
     } catch (error) {
       console.log(error);
     }
@@ -66,56 +79,60 @@ const Form: React.FC<Props> = ({ userId }) => {
   };
 
   return (
-    <div className="max-w-md w-full">
-      <form onSubmit={handleSubmit}>
-        {stepsData.map((stepData, index) => (
-          <div
-            key={index}
-            className={`flex flex-col gap-3 md:gap-0`}
+    <div className="">
+      <div className="max-w-md w-full">
+        <form onSubmit={handleSubmit}>
+          {stepsData.map((stepData, index) => (
+            <div
+              key={index}
+              className={`flex flex-col gap-3 md:gap-0`}
+            >
+              <h2 className="font-bold text-primary-green text-xl mt-5 mb-2">
+                {stepData.title}
+              </h2>
+              {stepData.fields.map((field, fieldIndex) => (
+                <div
+                  key={fieldIndex}
+                  className="mb-3"
+                >
+                  <h4 className="font-semibold">{field.label}</h4>
+                  <Input
+                    {...field}
+                    required
+                    value={fieldValues[field.name] || ""}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange(field.name, e.target.value)
+                    }
+                    className="w-full"
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
+          <h4 className="font-semibold">Profile</h4>
+          <Input
+            type="file"
+            className="border-none px-0 mb-3"
+            onChange={(e: any) => setProfile(e.target.files[0])}
+          />
+
+          <h4 className="font-semibold">Brand Image</h4>
+          <Input
+            type="file"
+            className="border-none px-0 mb-5"
+            onChange={(e: any) => setImageBrand(e.target.files[0])}
+          />
+
+          <Button
+            type="submit"
+            className="rounded-sm"
           >
-            <h2 className="font-bold text-primary-green text-xl mt-5 mb-2">
-              {stepData.title}
-            </h2>
-            {stepData.fields.map((field, fieldIndex) => (
-              <div
-                key={fieldIndex}
-                className="mb-3"
-              >
-                <h4 className="font-semibold">{field.label}</h4>
-                <Input
-                  {...field}
-                  required
-                  value={fieldValues[field.name] || ""}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange(field.name, e.target.value)
-                  }
-                  className="w-full"
-                />
-              </div>
-            ))}
-          </div>
-        ))}
-        <h4 className="font-semibold">Profile</h4>
-        <Input
-          type="file"
-          className="border-none px-0 mb-3"
-          onChange={(e: any) => setProfile(e.target.files[0])}
-        />
-
-        <h4 className="font-semibold">Brand Image</h4>
-        <Input
-          type="file"
-          className="border-none px-0 mb-5"
-          onChange={(e: any) => setImageBrand(e.target.files[0])}
-        />
-
-        <Button
-          type="submit"
-          className="rounded-sm"
-        >
-          {isLoading ? "Loading..." : "Submit"}
-        </Button>
-      </form>
+            {isLoading ? "Loading..." : "Submit"}
+          </Button>
+        </form>
+      </div>
+     
+      <ModalNewOutlet isOpen={isModalOpen} />
     </div>
   );
 };
