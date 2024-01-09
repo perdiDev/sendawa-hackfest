@@ -106,7 +106,7 @@ function Page(): JSX.Element {
             width={24}
             height={24}
           />
-          <span className="font-semibold mx-auto">Daftar Dengan Google</span>
+          <span className="font-semibold mx-auto">Masuk Dengan Google</span>
         </button>
       </div>
     </div>
