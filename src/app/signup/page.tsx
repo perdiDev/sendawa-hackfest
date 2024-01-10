@@ -21,7 +21,7 @@ function Page(): JSX.Element {
       const { result } = await signUp(email, password);
       console.log(result);
 
-      router.push("/admin");
+      router.push("/new-outlet");
     } catch (err) {
       const error = err as Error;
       console.log(error.message);
