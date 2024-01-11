@@ -37,7 +37,7 @@ export const stepsData: StepData[] = [
     ],
   },
   {
-    title: "Detail Brand",
+    title: "Detail Outlet",
     fields: [
       {
         name: "name_brand",
