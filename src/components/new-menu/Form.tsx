@@ -54,7 +54,7 @@ const Form = () => {
 
       const data = Object.assign(newMenu, {
         url: uploaded.url,
-        category: category.value,
+        category: category.value
       });
 
       const x = await addDataFirestore(
@@ -73,12 +73,13 @@ const Form = () => {
       <div className="max-w-md w-full">
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <h4 className="font-semibold">Nama Product</h4>
+            <h4 className="font-semibold">Nama Produk</h4>
             <Input
               required
               name="name"
               onChange={handleInputChange}
               className="w-full"
+              placeholder="Ikan Bandeng"
             />
           </div>
           <div className="mb-3">
@@ -90,6 +91,7 @@ const Form = () => {
               className="w-full"
               inputMode="numeric"
               pattern="[0-9]*"
+              placeholder="23000"
             />
           </div>
           <div className="mb-3">
