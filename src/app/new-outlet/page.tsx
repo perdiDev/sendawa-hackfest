@@ -1,8 +1,4 @@
-// "use client";
-import { useAuthContext } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import Form1 from "@/components/new-outlet-form/Form";
+import Form from "@/components/new-outlet-form/Form";
 import AuthLayout from "@/components/layouts/AuthLayout";
 
 export default function Page(): JSX.Element {
@@ -17,7 +13,7 @@ export default function Page(): JSX.Element {
             Fill all information about your outlet
           </h3>
         </div>
-        <Form1 />
+        <Form />
       </div>
     </AuthLayout>
   );

@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import uploadFile from "@/firebase/storage/uploadData";
-import { useRouter } from "next/navigation";
 import { FormData, stepsData } from ".";
 import addDataFirestore from "@/firebase/firestore/addData";
 import { useAuthContext } from "@/context/AuthContext";
@@ -15,7 +14,6 @@ import ModalNewOutlet from "./ModalNewOutlet";
 
 const Form = () => {
   const { user } = useAuthContext() as { user: any };
-  const router = useRouter();
 
   const [fieldValues, setFieldValues] = useState<FormData>(
     stepsData.reduce((acc, stepData) => {
@@ -65,7 +63,7 @@ const Form = () => {
 
       const emailData = {
         to: user.email,
-        brand_name: fieldValues.brand_name,
+        brand_name: fieldValues.name_brand,
       };
 
       console.log(emailData);

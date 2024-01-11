@@ -18,11 +18,9 @@ export default function ModalNewOutlet({isOpen}:{isOpen: boolean}) {
           </p>
         </div>
         <div className="flex flex-col gap-2">
-          <Link href={"/menu"}>
-            <Button>Next</Button>
-          </Link>
+         
           <Link href={"/admin"}>
-            <Button className="bg-white text-navy hover:bg-slate-200 border-2">Dashboard</Button>
+            <Button>Dashboard</Button>
           </Link>
         </div>
       </div>

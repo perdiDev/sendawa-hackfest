@@ -15,6 +15,7 @@ export default async function getDocumentFirestore(
   try {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
+      console.log(docSnap)
       result = docSnap.data();
     }
   } catch (e) {
