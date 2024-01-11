@@ -33,7 +33,7 @@ function Page(): JSX.Element {
     setIsLoading(false);
   };
 
-  const handleSignUpGoogle = async (event: { preventDefault: () => void }) => {
+  const handleSignInGoogle = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const provider = new GoogleAuthProvider();
     try {
@@ -98,7 +98,7 @@ function Page(): JSX.Element {
         </form>
         <button
           className="text-center leading-normal cursor-pointer transition-all duration-300 ease-in focus:outline-none focus:text-current w-full align-middle py-2 px-4 rounded-md border border-gray border-solid hover:bg-gray flex items-center gap-4"
-          onClick={handleSignUpGoogle}
+          onClick={handleSignInGoogle}
         >
           <Image
             src="https://assets.kitabisa.cc/images/auth/google.png"
