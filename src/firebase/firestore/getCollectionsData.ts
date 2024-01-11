@@ -3,7 +3,7 @@ import { getFirestore, doc, getDoc, collection, getDocs } from "firebase/firesto
 
 const db = getFirestore(firebase_app);
 
-export default async function getCollectionDataFirestore(
+export default async function getMenuCollection(
   collection_ref: string,
   id: string
 ) {
