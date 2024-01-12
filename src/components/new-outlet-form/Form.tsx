@@ -79,21 +79,7 @@ const Form = () => {
 
   return (
     <div className="">
-      <div className="max-w-md w-full">
-        <button
-          onClick={() => {
-            const emailData = {
-              to: user.email,
-              brand_name: "Warung Mas Sini",
-            };
-
-            console.log(emailData);
-
-            mutate(emailData);
-          }}
-        >
-          Send email
-        </button>
+      <div className="max-w-md w-full mb-10">
         <form onSubmit={handleSubmit}>
           {stepsData.map((stepData, index) => (
             <div
