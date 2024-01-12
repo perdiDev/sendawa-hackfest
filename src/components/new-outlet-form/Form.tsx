@@ -41,6 +41,7 @@ const Form = () => {
   const { mutate } = useMutation({
     mutationFn: sendEmail,
     onSuccess: (response) => console.log({ response }),
+    onError: (response) => console.log({response})
   });
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -79,6 +80,20 @@ const Form = () => {
   return (
     <div className="">
       <div className="max-w-md w-full">
+        <button
+          onClick={() => {
+            const emailData = {
+              to: user.email,
+              brand_name: "Warung Mas Sini",
+            };
+
+            console.log(emailData);
+
+            mutate(emailData);
+          }}
+        >
+          Send email
+        </button>
         <form onSubmit={handleSubmit}>
           {stepsData.map((stepData, index) => (
             <div
@@ -129,7 +144,7 @@ const Form = () => {
           </Button>
         </form>
       </div>
-     
+
       <ModalNewOutlet isOpen={isModalOpen} />
     </div>
   );
