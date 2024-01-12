@@ -46,7 +46,7 @@ Check out our [real progess](https://sendawa.vercel.app/) for more details.
 ![Sign up page](doc/stage2/signUp.png)
 ![Sign in page](doc/stage2/signIn.png)
 ![New outlet page](doc/stage2/New-outlet.png)
-![New outlet page](doc/stage2/send-email.jpeg)
+![Send email to oulet owner](doc/stage2/send-email.jpeg)
 ![New menu page](doc/stage2/createMenu.png)
 ![Admin Page](doc/stage2/admin.png)
 
@@ -89,5 +89,5 @@ DATABASE_REALTIME=
 
 
 ## Backend Services
-- 
-![Email sender Golang](https://github.com/zpenct/EmailGolang)
+
+[Email sender Golang](https://github.com/zpenct/EmailGolang)
