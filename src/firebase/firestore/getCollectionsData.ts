@@ -13,10 +13,18 @@ export default async function getMenuCollection(
   let error = null;
 
   try {
-    const collectionVal = collection(docRef,'makanan')
-    const getValue = await getDocs(collectionVal)
+    const collectionMakanan = collection(docRef,'makanan')
+    const collectionMinuman = collection(docRef,'minuman')
+    const collectionDessert = collection(docRef,'dessert')
+    const getValue_makanan = await getDocs(collectionMakanan)
+    const getValue_minuman = await getDocs(collectionMinuman)
+    const getValue_dessert = await getDocs(collectionDessert)
 
-    result = getValue.docs.map(doc => ({...doc.data(), id:doc.id}))
+    const makanan = getValue_makanan.docs.map(doc => ({...doc.data(), id:doc.id}))
+    const minuman = getValue_minuman.docs.map(doc => ({...doc.data(), id:doc.id}))
+    const dessert = getValue_dessert.docs.map(doc => ({...doc.data(), id:doc.id}))
+
+    result = {makanan, minuman, dessert}
   } catch (e) {
     error = e;
   }

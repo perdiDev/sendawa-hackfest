@@ -10,6 +10,7 @@ import { useAuthContext } from "@/context/AuthContext";
 import { useMutation } from "@tanstack/react-query";
 import Select from "react-select";
 import { v4 } from "uuid";
+import addCollectionMenu from "@/firebase/firestore/addCollectionData";
 
 const Form = () => {
   const { user } = useAuthContext() as { user: any };
@@ -57,9 +58,10 @@ const Form = () => {
         category: category.value
       });
 
-      const x = await addDataFirestore(
-        `/${user.uid}/menu/makanan`,
-        `${newMenu.name + v4()}`,
+      const x = await addCollectionMenu(
+        `/${user.uid}/`,
+        "menu",
+        category.value,
         data
       );
     } catch (error) {
