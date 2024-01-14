@@ -8,7 +8,7 @@ const buttonVariants = cva("", {
   variants: {
     variant: {
       default:
-        "w-full bg-primary-green text-white font-semibold py-2 rounded-lg hover:bg-secondary-green",
+        "w-full bg-navy text-white font-semibold py-3 rounded-lg hover:bg-blue-950",
       disable:
         "w-full bg-gray text-black font-semibold py-2 rounded-lg hover:bg-gray-400"
     },

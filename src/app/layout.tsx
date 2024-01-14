@@ -24,9 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body>
+      <body className="bg-primary-white">
         <main className="my-0 mx-auto min-h-full max-w-screen-sm relative">
-          <div className="my-0 mx-auto min-h-screen max-w-[640px] overflow-x-hidden bg-white">
+          <div className="my-0 mx-auto min-h-screen max-w-[640px] overflow-x-hidden bg-primary-white">
             <ReactQueryProvider>
               <AuthContextProvider>{children}</AuthContextProvider>
             </ReactQueryProvider>

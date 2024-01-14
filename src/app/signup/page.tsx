@@ -6,6 +6,12 @@ import Image from "next/image";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { auth } from "@/firebase";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+
+import logoSendawa from "../../../public/logo-sendawa.svg"
+import siginIl from "../../../public/img/login-il.png"
 
 function Page(): JSX.Element {
   const [email, setEmail] = useState("");
@@ -41,68 +47,47 @@ function Page(): JSX.Element {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="w-full max-w-md px-4">
+    <div className="min-h-screen bg-transparent relative">
+      <div className="bg-navy w-full h-32 rounded-br-[3rem] absolute top-0 flex justify-center items-center">
+        <Image src={logoSendawa} alt="sendawa logo" width={24} height={24} className="w-24 aspect-square" />
+      </div>
+      <div className="w-full flex flex-col items-center justify-center h-screen px-4">
         <form
           onSubmit={handleForm}
-          className="bg-white shadow-[-20_0_16px_0_rgba(0,0,0,0.08)] rounded pt-6 pb-8 mb-4"
+          className="shadow-[-20_0_16px_0_rgba(0,0,0,0.08)] rounded w-full"
         >
-          <h1 className="text-3xl font-bold mb-2 text-primary-green pb-2 border-b-2 border-primary-green">
-            Sign Up
-          </h1>
-          <p>Your Success Journey starts here</p>
+          <h1 className="text-center font-bold text-3xl text-navy">Daftar</h1>
           <div className="my-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Email
-            </label>
             <input
               onChange={(e) => setEmail(e.target.value)}
               required
               type="email"
               name="email"
               id="email"
-              placeholder="fayzul@gmail.com"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="email@gmail.com"
+              className="rounded py-4 px-4 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Password
-            </label>
             <input
               onChange={(e) => setPassword(e.target.value)}
               required
               type="password"
               name="password"
               id="password"
-              placeholder="*****"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Password"
+              className="rounded py-4 px-4 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="flex flex-col items-center justify-between gap-5">
-            <button
-              type="submit"
-              className="w-full bg-primary-green text-white font-semibold py-2 rounded-lg hover:bg-secondary-green"
-            >
-              Next Step
-            </button>
-            {erorrMessage && (
-              <div className="text-black bg-red-100 shadow border-l-4 border-red-500 p-2 w-full">
-                <p className="text-red-500 font-bold">There is a problem</p>
-                {erorrMessage}
-              </div>
-            )}
+            <Button type="submit">
+              Selanjutnya
+            </Button>
           </div>
         </form>
-        {/*  */}
+        <p className="text-center py-4">Sudah terdaftar? <Link href="/signin" className="text-blue-900 hover:text-blue-950">Login</Link></p>
         <button
-          className="text-center leading-normal cursor-pointer transition-all duration-300 ease-in focus:outline-none focus:text-current w-full align-middle py-2 px-4 rounded-md border border-gray border-solid hover:bg-gray flex items-center gap-4"
+          className="text-center leading-normal cursor-pointer transition-all duration-300 ease-in focus:outline-none focus:text-current w-full py-3 px-4 rounded-md bg-white border-solid hover:bg-slate-200 flex items-center  justify-end"
           onClick={handleSignUpGoogle}
         >
           <Image
@@ -110,10 +95,12 @@ function Page(): JSX.Element {
             alt="google"
             width={24}
             height={24}
+            className="w-fit"
           />
-          <span className="font-semibold mx-auto">Daftar Dengan Google</span>
+          <span className="font-semibold mx-auto w-fit">Masuk Dengan Google</span>
         </button>
       </div>
+      <Image src={siginIl} alt="Ilustrasi login page" width={400} height={400} className="w-full h-fit absolute bottom-0 sm:hidden" />
     </div>
   );
 }
