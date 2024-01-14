@@ -1,12 +1,18 @@
+"use client"
+
 import React from "react";
-import { FaWallet } from "react-icons/fa";
 import Activity from "./Activity";
+import { MdOutlinePivotTableChart } from "react-icons/md";
+import { HiMiniQueueList } from "react-icons/hi2";
+import { IconContext } from "react-icons";
 
 export default function ActivitesList() {
   return (
-    <div className="mt-10 flex justify-center gap-5 px-5">
-      <Activity tag="Balance" value="Rp12000" icon={<FaWallet />}/>
-      <Activity tag="Balance" value="Rp12000" icon={<FaWallet />}/>
+    <div className="mt-10 grid grid-cols-2 gap-5">
+      <IconContext.Provider value={{size:"2em",}}>
+        <Activity link="/meja" tag="Meja" icon={<MdOutlinePivotTableChart />}/>
+        <Activity link="/antrian" tag="Antrian" icon={<HiMiniQueueList />}/>
+      </IconContext.Provider>
     </div>
   );
 }

@@ -11,9 +11,11 @@ import { useMutation } from "@tanstack/react-query";
 import Select from "react-select";
 import { v4 } from "uuid";
 import addCollectionMenu from "@/firebase/firestore/addCollectionData";
+import { useRouter } from "next/navigation";
 
 const Form = () => {
   const { user } = useAuthContext() as { user: any };
+  const router = new useRouter();
 
   const [newMenu, setNewMenu] = useState({
     name: "",
@@ -64,6 +66,7 @@ const Form = () => {
         category.value,
         data
       );
+      router.push("/admin")
     } catch (error) {
       console.log(error);
     }

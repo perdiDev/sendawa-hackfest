@@ -20,11 +20,15 @@ const ActivitesList = dynamic(() => import("@/components/admin/Activites"),{
 function Page(): JSX.Element {
   return (
     <AuthLayout>
-      <main className="mx-auto w-full">
-        <Profile />
-        <ActivitesList />
-        <MenuSection />
-        <Logout />
+      <main className="mx-auto w-full static">
+        <div className="mb-4">
+          <Profile />
+          <ActivitesList />
+          <MenuSection />
+          <div className="mt-4">
+            <Logout />
+          </div>
+        </div>
       </main>
     </AuthLayout>
   );

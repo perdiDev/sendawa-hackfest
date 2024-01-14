@@ -1,21 +1,19 @@
+import Link from "next/link";
 import React from "react";
 
 interface activitesInterface  {
   icon?: any
   tag: string
-  value: string
+  link: string
 }
 
-export default function Activity({icon, tag, value}: activitesInterface) {
+export default function Activity({icon, tag, link}: activitesInterface) {
   return (
-    <div className="bg-slate-100 px-[30px] py-5 w-full rounded-md shadow">
-      <h3 className="text-navy font-bold flex gap-3 items-baseline text-sm md:text-md">
+    <Link href={link} className="bg-white px-[30px] py-5 w-full rounded-md shadow flex justify-center items-center text-navy font-bold gap-3 text-2xl">
         <span>
           {icon}
         </span>
         {tag}
-      </h3>
-      <h2 className="text-slate-800 text-lg">{value}</h2>
-    </div>
+    </Link>
   );
 }
